@@ -16,7 +16,7 @@ import FormResponsePage from "./pages/FormResponsePage";
 import FormResponse from "./components/formResponse/FormResponse";
 import ProfilePage from "./components/profilePage/ProfilePage";
 import ProjectInsights from "./components/analysis/ProjectInsights";
-import Analysis from "./components/analysis/Analysis";
+import Analysis from "./components/analysis/analysis.jsx";
 
 function App() {
   return (
