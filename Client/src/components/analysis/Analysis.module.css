@@ -1,0 +1,156 @@
+.analysisPage {
+  padding: 32px;
+  background: #fff;
+  min-height: 100vh;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.titleWrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.back {
+  font-size: 20px;
+  cursor: pointer;
+}
+.pageLabel {
+  color: #666;
+  margin-bottom: 16px;
+}
+
+.primaryBtn,
+.downloadBtn {
+  background: #000;
+  color: #fff;
+  border: none;
+  border-radius: 22px;
+  padding: 10px 22px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+}
+
+.projectTitle {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.topSection {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+.statsCol {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.statCard {
+  background: #eef1ff;
+  padding: 20px;
+  border-radius: 18px;
+  width: 220px;
+}
+.growth {
+  font-size: 12px;
+}
+
+.chartCard {
+  flex: 1;
+  background: #fff;
+  padding: 20px;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+.legend {
+  display: flex;
+  gap: 12px;
+  font-size: 12px;
+}
+.dotBlack,
+.dotBlue {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dotBlack {
+  background: #111;
+}
+.dotBlue {
+  background: #7fb0ff;
+}
+
+.formsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+}
+.formLink {
+  text-decoration: none;
+  color: inherit;
+}
+.formCard {
+  background: #fff;
+  padding: 20px;
+  border-radius: 18px;
+  position: relative;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.15);
+}
+.iconBox {
+  width: 56px;
+  height: 56px;
+  background: #6fb5ff;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.formName {
+  margin-top: 12px;
+}
+.linkIcon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.questionCard {
+  background: #fafafa;
+  padding: 24px;
+  border-radius: 22px;
+  margin-bottom: 24px;
+}
+.donutWrap {
+  display: flex;
+  gap: 40px;
+  align-items: center;
+}
+.legendList {
+  list-style: none;
+  padding: 0;
+}
+.legendList li {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.downloadWrap {
+  display: flex;
+  justify-content: flex-end;
+}
