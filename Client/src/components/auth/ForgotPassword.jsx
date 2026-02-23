@@ -7,41 +7,49 @@ const ForgotPassword = () => {
   const [isOTPSent, setIsOTPSent] = useState(false);
   const [email, setEmail] = useState("");
   const [OTP, setOTP] = useState("");
-  const [error, setError] = useState("");
-  const [authentication, { isLoading, isError }] = useAuthenticationMutation();
+  const [error, setError] = useState({});
+  const [authentication, { isLoading }] = useAuthenticationMutation();
   const navigate = useNavigate();
 
+  // ✅ STEP 1: SEND OTP (forgot-password)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { message, OTP } = await authentication({
+      const { token } = await authentication({
         action: "forgot-password",
         email,
       }).unwrap();
 
-      // console.log(message, OTP);
+      // 🔴 TOKEN SAVE HERE (VERY IMPORTANT)
+      localStorage.setItem("resetToken", token);
 
-      if (!isLoading) setIsOTPSent(true);
+      setIsOTPSent(true);
     } catch (error) {
-      console.log("Passowrd reset error:", error);
-      if (error.data.error.includes("User not found")) {
+      console.log("Password reset error:", error);
+      if (error?.data?.error?.includes("User not found")) {
         setError({ emailError: true });
       }
     }
   };
+
+  // ✅ STEP 2: VERIFY OTP
   const submitOTP = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("resetToken");
+
       const { message } = await authentication({
-        action: "verify-otp",
+        action: "verify-otp",   // ✅ CORRECT ACTION
         otp: OTP,
-        email: email,
+        email,
+        token,                  // ✅ JWT TOKEN PASS
       }).unwrap();
 
       if (message.includes("OTP verified")) {
         navigate("/reset-password", { state: { email } });
       }
     } catch (error) {
+      console.log("OTP error:", error);
       if (error?.data?.error?.includes("Invalid or expired OTP")) {
         setError({ otpError: true });
       }
@@ -59,7 +67,6 @@ const ForgotPassword = () => {
           <form className="login-form" onSubmit={handleSubmit}>
             <label>Email</label>
             <input
-              name="email"
               type="email"
               placeholder="Enter your registered email"
               required
@@ -71,19 +78,7 @@ const ForgotPassword = () => {
             {error.emailError && <div className="error">Email not found</div>}
 
             <button type="submit" className="login-btn" disabled={isLoading}>
-              {isLoading ? (
-                <div
-                  className="spinner"
-                  style={{
-                    width: "16px",
-                    height: "16px",
-                    borderWidth: "3px",
-                    margin: "auto",
-                  }}
-                ></div>
-              ) : (
-                " Send Mail"
-              )}
+              {isLoading ? "Sending..." : "Send Mail"}
             </button>
           </form>
         </>
@@ -94,14 +89,12 @@ const ForgotPassword = () => {
           <h2 className="login-title">Enter Your OTP</h2>
           <p className="login-subtitle">
             We’ve sent a 6-digit OTP to your registered mail.
-            <br />
-            Please enter it below to sign in.
           </p>
           <form className="login-form" onSubmit={submitOTP}>
             <label>OTP</label>
             <input
               type="text"
-              placeholder="Enter you OTP here"
+              placeholder="Enter your OTP"
               required
               onChange={(e) => {
                 setOTP(e.target.value);
@@ -111,20 +104,9 @@ const ForgotPassword = () => {
             {error.otpError && (
               <div className="error">Invalid or expired OTP</div>
             )}
+
             <button type="submit" className="login-btn" disabled={isLoading}>
-              {isLoading ? (
-                <div
-                  className="spinner"
-                  style={{
-                    width: "16px",
-                    height: "16px",
-                    borderWidth: "3px",
-                    margin: "auto",
-                  }}
-                ></div>
-              ) : (
-                " Confirm"
-              )}
+              {isLoading ? "Verifying..." : "Confirm"}
             </button>
           </form>
         </>
